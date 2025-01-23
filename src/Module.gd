@@ -1,11 +1,12 @@
-extends CollisionShape
+@tool
+@icon("res://assets/module_icon.svg")
+extends CollisionShape3D
 
-tool
-class_name BuildModule, "res://assets/module_icon.svg"
+class_name BuildModule
 
-func _get_configuration_warning():
-	if $Model == null or !($Model is MeshInstance):
-		return "A Model node of type MeshInstance is required"
+func _get_configuration_warnings():
+	if $Model == null or !($Model is MeshInstance3D):
+		return "A Model node of type MeshInstance3D is required"
 	if $SnapArea == null or !($SnapArea is SnapArea):
 		return "A SnapArea node of type SnapArea is required"
 	return ""
@@ -17,9 +18,9 @@ signal block_remove(id)
 
 #indicates this block's force direction, if any
 var block_force_direction:Vector3 = Vector3.ZERO
-export var block_mass:float = 1.0
-export var block_health:float = 100.0
-export var block_name:String = "BaseBlock"
+@export var block_mass:float = 1.0
+@export var block_health:float = 100.0
+@export var block_name:String = "BaseBlock"
 
 func _ready():
 	pass

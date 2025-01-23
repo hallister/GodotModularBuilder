@@ -13,5 +13,5 @@ func _physics_process(delta):
 	else:
 		wheel_turn = lerp_angle(wheel_turn, 0.0, .2)
 	steering = wheel_turn
-	._physics_process(delta)
+	super._physics_process(delta)
 	pass

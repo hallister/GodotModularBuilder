@@ -1,0 +1,148 @@
+[gd_scene load_steps=5 format=3 uid="uid://xilvuqulsmhg"]
+
+[ext_resource type="PackedScene" path="res://src/Vehicle.tscn" id="1"]
+[ext_resource type="Script" path="res://src/CamRefX.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://g11mwpwl30b5" path="res://assets/textures/texture_01.png" id="3"]
+
+[sub_resource type="StandardMaterial3D" id="1"]
+albedo_texture = ExtResource("3")
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_triplanar = true
+
+[node name="level2" type="Node3D"]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 20.0
+
+[node name="HBoxContainer" type="Control" parent="UI/MarginContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="UI/MarginContainer/HBoxContainer"]
+layout_mode = 0
+offset_right = 281.0
+offset_bottom = 167.0
+text = "Cross marks the center of gravity (disabled)
+Space - Changes Camera3D 
+(if existing camera Module), only one tested
+Middle Button - camera pan
+Scroll - Zoom
+Right click - remove block
+Left click - add block
+page up/down - rotates arrow
+home/end - rotates arrow
+"
+
+[node name="Label" type="Label" parent="UI/MarginContainer/HBoxContainer"]
+layout_mode = 0
+anchor_right = 1.099
+anchor_bottom = 2.231
+offset_left = -0.643219
+offset_top = 429.184
+offset_right = -794.159
+offset_bottom = -0.027832
+text = "1-4 - select available blocks
+1 - armor block
+2 - thruster block
+3 - wheel block (steer)
+4 - wheel block (fixed)
+5 - Gyro block
+6 - Camera3D block
+"
+
+[node name="Label3" type="Label" parent="UI/MarginContainer/HBoxContainer"]
+layout_mode = 0
+anchor_right = 1.099
+anchor_bottom = 2.231
+offset_left = 871.4
+offset_top = -5.17839
+offset_right = 8.88416
+offset_bottom = -434.39
+text = "W - accelerate
+S - Brake
+A - Turn right
+D - turn left
+Q and E - Yaw
+Up/Dowm - Pitch
+Left/Right - Roll"
+
+[node name="Vehicle" parent="." instance=ExtResource("1")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -1.78091, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.67721, 0.584959, -0.446329, 0, 0.606599, 0.795008, 0.73579, -0.538387, 0.410795, 0, 14.635, 0)
+shadow_enabled = true
+
+[node name="CamRefX" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 4, 0)
+script = ExtResource("2")
+
+[node name="CamRefY" type="Node3D" parent="CamRefX"]
+
+[node name="CamRefZ" type="Node3D" parent="CamRefX/CamRefY"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -4, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CamRefX/CamRefY/CamRefZ"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0598e-07, 4, 7)
+far = 1500.0
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+material_override = SubResource("1")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+size = Vector3(436.092, 15, 444.632)
+
+[node name="CSGBox2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 0)
+operation = 2
+size = Vector3(378, 25, 390)
+
+[node name="CSGBox3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.947042, 0.321109, 0, -0.321109, 0.947042, 0, 0, 0, 1, -54.171, -2.08635, 0)
+size = Vector3(25.2536, 1.84841, 39.8168)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 188.944, 7.5, 0)
+operation = 2
+radius = 12.5
+height = 390.0
+sides = 32
+
+[node name="CSGCylinder2" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(2.067, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -35.7308, -4.93264, 114.392)
+height = 28.2999
+
+[node name="CSGCylinder3" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(2.067, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -30.0902, -4.93264, 114.392)
+height = 28.2999
+
+[node name="CSGCylinder4" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(2.067, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -23.8133, -4.93264, 114.392)
+height = 28.2999
+
+[node name="CSGCylinder5" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(2.067, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -17.262, -4.93264, 114.392)
+height = 28.2999
+
+[node name="CSGBox4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, -44.4545, -5, -66.1853)
+size = Vector3(4, 4, 4)
+
+[node name="CSGBox6" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, -65.6545, -5, -66.1853)
+size = Vector3(4, 4, 4)
+
+[node name="CSGBox5" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.0617, -3.2, -66.1882)
+size = Vector3(21.2, 1, 3.90938)

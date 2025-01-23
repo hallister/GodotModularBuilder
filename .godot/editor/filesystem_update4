@@ -1,0 +1,7 @@
+res://default_env.tres
+res://src/level2.tscn
+res://assets/3d/blocks/control_module.tres
+res://src/AbstractModule.tscn
+res://src/Vehicle.tscn
+res://src/SnapArea.tscn
+res://assets/3d/blocks/camera_module.tres

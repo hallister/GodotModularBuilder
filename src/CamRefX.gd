@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 var invert_y = false
 var invert_x = false
@@ -47,13 +47,13 @@ func _unhandled_input(event):
 			var dir = 1 if invert_y else -1
 			$CamRefY.rotate_object_local(Vector3.FORWARD, dir * event.relative.y * mouse_sensitivity)
 	if event is InputEventMouseButton:
-		if event.button_index == BUTTON_WHEEL_UP:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			zoom -= zoom_speed
-		if event.button_index == BUTTON_WHEEL_DOWN:
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			zoom += zoom_speed
-		if event.button_index == BUTTON_MIDDLE and event.pressed:
+		if event.button_index == MOUSE_BUTTON_MIDDLE and event.pressed:
 			btn_down = true
-		if event.button_index == BUTTON_MIDDLE and !event.pressed:
+		if event.button_index == MOUSE_BUTTON_MIDDLE and !event.pressed:
 			btn_down = false
 		zoom = clamp(zoom, min_zoom, max_zoom)
 	pass

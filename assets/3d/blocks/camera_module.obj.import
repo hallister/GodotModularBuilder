@@ -1,19 +1,22 @@
 [remap]
 
 importer="wavefront_obj"
+importer_version=1
 type="Mesh"
-path="res://.import/camera_module.obj-78799fdfea82cfd63bfd847d03fb4c68.mesh"
+uid="uid://ckhnel74qrmou"
+path="res://.godot/imported/camera_module.obj-78799fdfea82cfd63bfd847d03fb4c68.mesh"
 
 [deps]
 
-files=[ "res://.import/camera_module.obj-78799fdfea82cfd63bfd847d03fb4c68.mesh" ]
+files=["res://.godot/imported/camera_module.obj-78799fdfea82cfd63bfd847d03fb4c68.mesh"]
 
 source_file="res://assets/3d/blocks/camera_module.obj"
-dest_files=[ "res://.import/camera_module.obj-78799fdfea82cfd63bfd847d03fb4c68.mesh", "res://.import/camera_module.obj-78799fdfea82cfd63bfd847d03fb4c68.mesh" ]
+dest_files=["res://.godot/imported/camera_module.obj-78799fdfea82cfd63bfd847d03fb4c68.mesh", "res://.godot/imported/camera_module.obj-78799fdfea82cfd63bfd847d03fb4c68.mesh"]
 
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3( 1, 1, 1 )
-offset_mesh=Vector3( 0, 0, 0 )
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
 optimize_mesh=true
+force_disable_mesh_compression=false

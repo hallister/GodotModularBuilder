@@ -4,17 +4,17 @@
 [ext_resource path="res://src/SnapArea.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/3d/blocks/camera_module.tres" type="ArrayMesh" id=3]
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="BoxShape3D" id=1]
 
-[node name="CameraModule" type="CollisionShape"]
+[node name="CameraModule" type="CollisionShape3D"]
 shape = SubResource( 1 )
 script = ExtResource( 1 )
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 1 )
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 1 )
 far = 800.0
 
-[node name="Model" type="MeshInstance" parent="."]
+[node name="Model" type="MeshInstance3D" parent="."]
 mesh = ExtResource( 3 )
 material/0 = null
 material/1 = null

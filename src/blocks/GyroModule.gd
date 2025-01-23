@@ -1,6 +1,6 @@
 extends BuildModule
 
-export var gyro_force:float = 2.0
+@export var gyro_force:float = 2.0
 
 func _ready():
 	pass

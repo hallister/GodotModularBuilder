@@ -1,4 +1,4 @@
-extends VehicleBody
+extends VehicleBody3D
 
 var forces:Dictionary = {}
 var torques:Dictionary = {}
@@ -17,10 +17,10 @@ var selected:Array = modules[0]
 var orientation:Vector3 = Vector3.ZERO
 
 func _ready():
-	$BaseModule.connect("block_torque_add", self, "_block_input")
-	$BaseModule.connect("block_impulse_add", self, "_block_input")
-	$BaseModule.connect("block_add", self, "_block_added")
-	$BaseModule.connect("block_remove", self, "_block_removed")
+	$BaseModule.connect("block_torque_add", Callable(self, "_block_input"))
+	$BaseModule.connect("block_impulse_add", Callable(self, "_block_input"))
+	$BaseModule.connect("block_add", Callable(self, "_block_added"))
+	$BaseModule.connect("block_remove", Callable(self, "_block_removed"))
 	pass
 
 func _process(delta):
@@ -43,7 +43,7 @@ func _physics_process(delta):
 
 func _block_removed(id):
 	mass -= id.block_mass
-	weight = mass*gravity_scale*9.8
+	var weight = mass*gravity_scale*9.8
 	remove_child(id)
 	#_recalculate_cm()
 	apply_central_impulse(Vector3.UP*mass)
@@ -51,16 +51,16 @@ func _block_removed(id):
 
 func _block_added(pos:Vector3, normal:Vector3, orientation:Vector3):
 	var new_module_scene = load(selected[0]).duplicate(true)
-	var new_module = new_module_scene.instance()
+	var new_module = new_module_scene.instantiate()
 	new_module.translate_object_local(to_local(pos + normal))
 	add_child(new_module)
-	new_module.connect("block_add", self, "_block_added")
-	new_module.connect("block_impulse_add", self, "_block_impulse")
-	new_module.connect("block_torque_add", self, "_block_torque")
-	new_module.connect("block_remove", self, "_block_removed")
+	new_module.connect("block_add", Callable(self, "_block_added"))
+	new_module.connect("block_impulse_add", Callable(self, "_block_impulse"))
+	new_module.connect("block_torque_add", Callable(self, "_block_torque"))
+	new_module.connect("block_remove", Callable(self, "_block_removed"))
 	new_module.rotation = orientation
 	mass += new_module.block_mass
-	weight = mass*gravity_scale*9.8
+	var weight = mass*gravity_scale*9.8
 	#_recalculate_cm()
 	apply_central_impulse(Vector3.UP*mass)
 	pass
@@ -92,7 +92,7 @@ func _recalculate_cm():
 
 func _block_impulse(direction:Vector3, pos:Vector3):
 	#apply_central_impulse(direction)
-	apply_impulse(pos, direction)
+	apply_impulse(direction, pos)
 	print("-----------------------------")
 	print(str(pos) + "|" + str(direction))
 	pass
@@ -105,7 +105,7 @@ func _unhandled_key_input(event):
 	if event is InputEventKey:
 		var evt:InputEventKey = event
 		if evt.pressed:
-			match event.scancode:
+			match event.keycode:
 				KEY_1:
 					selected = modules[0]
 				KEY_2:

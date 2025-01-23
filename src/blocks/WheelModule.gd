@@ -1,4 +1,4 @@
-extends VehicleWheel
+extends VehicleWheel3D
 
 class_name WheelModule
 
@@ -7,13 +7,13 @@ signal block_impulse_add(direction, pos)
 signal block_add(pos, normal, orientation)
 signal block_remove(id)
 
-export var wheel_increment:float = 1.0
-export var wheel_max_force:float = 500.0
+@export var wheel_increment:float = 1.0
+@export var wheel_max_force:float = 500.0
 var wheel_spin:float = 0.0
 
-export var block_mass:float = 1.0
-export var block_health:float = 100.0
-export var block_name:String = "BaseBlock"
+@export var block_mass:float = 1.0
+@export var block_health:float = 100.0
+@export var block_name:String = "BaseBlock"
 
 func _ready():
 	pass

@@ -1,4 +1,4 @@
-extends Area
+extends Area3D
 
 class_name SnapArea
 
@@ -22,8 +22,8 @@ func _process(delta):
 	
 	target_rot = normalize_angle_vec(target_rot)
 	
-	var a = Quat($Indicator.transform.basis)
-	var b = Quat(target_rot)
+	var a = Quaternion(Basis($Indicator.transform.basis).orthonormalized())
+	var b = Quaternion.from_euler(target_rot)
 	# Interpolate using spherical-linear interpolation (SLERP).
 	var c = a.slerp(b,0.5) # find halfway point between a and b
 	# Apply back
@@ -39,7 +39,7 @@ func _unhandled_key_input(event):
 
 func _change_model():
 	var model = load(get_parent().get_parent().selected[1]).duplicate(true)
-	var mat = $Indicator/IndicatorShape.get_surface_material(0)
+	var mat = $Indicator/IndicatorShape.get_surface_override_material(0)
 	$Indicator/IndicatorShape.mesh = model
 	for surface in range($Indicator/IndicatorShape.mesh.get_surface_count()):
 		$Indicator/IndicatorShape.mesh.surface_set_material(surface, mat)
@@ -71,14 +71,14 @@ func _on_IndicatorArea_input_event(camera, event, click_position:Vector3, click_
 	if event is InputEventMouseButton:
 		#Ajustar
 		var rot:Vector3 = get_parent().rotation + $Indicator.rotation
-		if event.button_index == BUTTON_MASK_RIGHT and event.pressed:
+		if event.button_index == MOUSE_BUTTON_MASK_RIGHT and event.pressed:
 			emit_signal(
 				"indicator_pressed", 
 				click_position, 
 				click_normal, 
 				rot.snapped(Vector3.ONE*PI/2), 
 				false)
-		if event.button_index == BUTTON_MASK_LEFT and event.pressed:
+		if event.button_index == MOUSE_BUTTON_MASK_LEFT and event.pressed:
 			emit_signal(
 				"indicator_pressed", 
 				click_normal + global_transform.origin, 

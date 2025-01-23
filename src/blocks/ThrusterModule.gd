@@ -1,6 +1,6 @@
 extends BuildModule
 
-export var engine_force:float = 3.0
+@export var engine_force:float = 3.0
 
 func _ready():
 	pass
